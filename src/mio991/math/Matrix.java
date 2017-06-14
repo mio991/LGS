@@ -265,41 +265,39 @@ public class Matrix implements Cloneable {
 		assert this.getHeight() == this.getWidth();
 		assert this.det() != 0;
 		
-		Matrix copy = new Matrix(this);		
+		Matrix copy = new Matrix(this);
 		Matrix res = unit(this.getHeight());
-		
 		
 		Matrix C;
 		
 		for(int l = 0; l < copy.getWidth(); l++)
 		{
-			int t = l;
+			int max = l;
 			
-			while(t < copy.getHeight() && copy.get(t, l) == 0 )
+			for(int k = l; k < copy.getHeight(); k++)
 			{
-				t++;
+				if(copy.get(k, l) > copy.get(max, l)){
+					max = k;
+				}
 			}
 			
-			if(t < copy.getHeight())
-			{
-				C = e(this.getHeight(), l, t);
-				
-				copy = multiply(copy, C);
-				res = multiply(res, C);
-			}
+			C = e(this.getHeight(), l, max);
+			
+			copy = multiply(C, copy);
+			res = multiply(C, res);
 			
 			if(copy.get(l, l) != 0.0)
 			{
 				C = e(this.getHeight(), l, 1.0 / copy.get(l, l));
 			
-				copy = multiply(copy, C);
-				res = multiply(res, C);
+				copy = multiply(C, copy);
+				res = multiply(C, res);
 			}
 			
 			for(int k = l+1; k < copy.getHeight(); k++)
 			{
 				C = e(this.getHeight(), k, l , -1.0 * copy.get(k, l));
-				
+
 				copy = multiply(C, copy);
 				res = multiply(C, res);
 			}
@@ -310,9 +308,8 @@ public class Matrix implements Cloneable {
 			
 			for(int k = l-1; k >= 0; k--)
 			{
-				
 				C = e(this.getHeight(), k, l , -1.0 * copy.get(k, l));
-				
+
 				copy = multiply(C, copy);
 				res = multiply(C, res);
 			}
