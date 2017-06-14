@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 import java.io.*;
 import java.util.Random;
 
-public class AllTests {
+public class MatrixTests {
 	private Matrix m1;
 	private Matrix m2;
 	private Matrix r1;
@@ -20,7 +20,7 @@ public class AllTests {
 	private Random rand = new Random(5);
 	
 
-	public AllTests() {
+	public MatrixTests() {
 		m1 = new Matrix(new double[][] { { 1, 2, 3 }, { 4, 5, 6 } });
 		m2 = new Matrix(new double[][] { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } });
 		r1 = new Matrix(new double[][] { { 2, 4, 6 }, { 8, 10, 12 } });
@@ -29,6 +29,13 @@ public class AllTests {
 		r4 = new Matrix(new double[][] { {5, 6} });
 		elem = new Matrix(new double[][]{{0, 1}, {1, 0}});
 		testFile = new Matrix(new double[][] { { 1, 2, 3 }, { 0, 1, 2 }, { 0, 0, 1 } });
+	}
+	
+	@Test
+	public void testDimensions()
+	{
+		assertEquals(2, m1.getHeight());
+		assertEquals(3, m1.getWidth());
 	}
 
 	@Test
@@ -106,9 +113,15 @@ public class AllTests {
 		assertEquals(Matrix.e(3, 1, 2), Matrix.e(3, 1, 2).inverse());
 	}
 	
+	@Test(expected=AssertionError.class)
+	public void faultyInvers()
+	{
+		m1.inverse();
+	}
+	
 	@Test
 	public void fileRead() throws IOException {
-		InputStream input = AllTests.class.getResourceAsStream("test.mat");
+		InputStream input = MatrixTests.class.getResourceAsStream("test.mat");
 		
 		Matrix t = new Matrix(input);
 		assertEquals(testFile, t);
