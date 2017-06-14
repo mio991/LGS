@@ -1,5 +1,8 @@
 package mio991.math;
 
+import java.io.*;
+import java.util.Scanner;
+
 public class Matrix implements Cloneable {
 	private double[][] m_Values;
 
@@ -57,7 +60,57 @@ public class Matrix implements Cloneable {
 	protected Object clone() throws CloneNotSupportedException {
 		return new Matrix(this);
 	}
+	
+	/**
+	 * Reads a Matrix from an {@link InputStream}.
+	 * @param input the {@link InputStream} to read from.
+	 */
+	public Matrix(InputStream input)
+	{
+		Scanner scanner = new Scanner(input);
+		
+		int n = scanner.nextInt();
+		int m = scanner.nextInt();
+		
+		m_Values = new double[n][m];
+		
+		for(int k = 0; k < n; k++)
+		{
+			for(int l = 0; l < m; l++)
+			{
+				if(!scanner.hasNextDouble())
+				{
+					throw new IllegalArgumentException("Corrupted File: Missing Data? Non numerical Symbols?");
+				}
+					
+				this.set(k, l, scanner.nextDouble());
+			}
+		}
+		
+		scanner.close();
+	}
 
+	public void save(OutputStream output)
+	{
+		PrintWriter writer = new PrintWriter(output);
+		
+		writer.print(this.height());
+		writer.print(" ");
+		writer.print(this.width());
+		writer.print(" ");
+		
+		for(int k = 0; k < this.height(); k++)
+		{
+			for(int l = 0; l < this.width(); l++)
+			{
+				writer.println(this.get(k, l));
+				writer.print(" ");
+			}
+		}
+		
+		writer.close();
+	}
+	
 	/**
 	 * Returns the height of the Matrix
 	 * 
@@ -203,6 +256,10 @@ public class Matrix implements Cloneable {
 		return sum;
 	}
 	
+	/**
+	 * Returns the inverse of this Matrix
+	 * @return the inverse of this Matrix.
+	 */
 	public Matrix inverse() {
 		assert this.height() == this.width();
 		assert this.det() != 0;

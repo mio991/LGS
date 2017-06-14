@@ -4,6 +4,7 @@ import mio991.math.Matrix;
 import org.junit.*;
 import static org.junit.Assert.*;
 
+import java.io.*;
 import java.util.Random;
 
 public class AllTests {
@@ -13,6 +14,7 @@ public class AllTests {
 	private Matrix r2;
 	private Matrix r3;
 	private Matrix r4;
+	private Matrix testFile;
 	private Matrix elem;
 	
 	private Random rand = new Random(5);
@@ -26,6 +28,7 @@ public class AllTests {
 		r3 = new Matrix(new double[][] { { 1, 4 }, { 2, 5 }, { 3, 6 } });
 		r4 = new Matrix(new double[][] { {5, 6} });
 		elem = new Matrix(new double[][]{{0, 1}, {1, 0}});
+		testFile = new Matrix(new double[][] { { 1, 2, 3 }, { 0, 1, 2 }, { 0, 0, 1 } });
 	}
 
 	@Test
@@ -101,5 +104,33 @@ public class AllTests {
 		assertEquals(Matrix.unit(5), Matrix.unit(5).inverse());
 		assertEquals(Matrix.e(5, 3, 1.0/3.0), Matrix.e(5, 3, 3.0).inverse());
 		assertEquals(Matrix.e(3, 1, 2), Matrix.e(3, 1, 2).inverse());
+	}
+	
+	@Test
+	public void fileRead() throws IOException {
+		InputStream input = AllTests.class.getResourceAsStream("test.mat");
+		
+		Matrix t = new Matrix(input);
+		assertEquals(testFile, t);
+		
+		input.close();
+	}
+	
+	@Test
+	public void loadSaveTest() throws IOException {
+		File file = File.createTempFile("test1", "mat");
+		file.deleteOnExit();
+		
+		OutputStream out = new FileOutputStream(file);
+		m1.save(out);
+		out.close();
+		
+		InputStream in = new FileInputStream(file);
+		Matrix test = new Matrix(in);
+		in.close();
+		
+		assertEquals(m1, test);
+		
+		
 	}
 }

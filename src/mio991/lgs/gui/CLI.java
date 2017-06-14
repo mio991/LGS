@@ -8,9 +8,13 @@ public class CLI {
 		Matrix m = new Matrix(new double[][]{{2, 3}, {2, 1}});
 		Matrix i = m.inverse();
 		
-		System.out.println(i);
+		//System.out.println(i);
 		
-		System.out.println(Matrix.multiply(m, i));
+		//System.out.println(Matrix.multiply(m, i));
+		
+		
+		
+		i.save(System.out);
 	}
 
 }
