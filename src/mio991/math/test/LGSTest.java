@@ -1,6 +1,10 @@
 package mio991.math.test;
 
 import static org.junit.Assert.*;
+
+import java.io.IOException;
+import java.io.InputStream;
+
 import org.junit.*;
 
 import mio991.math.*;
@@ -40,9 +44,22 @@ public class LGSTest {
 		Matrix s = new Matrix(new double[][]{{1.375}, {1.25}, {-0.625}});
 		double err = Matrix.add(lgs.calcSollution(),Matrix.multiply(-1.0, s)).norm();
 		
-		System.out.println(err);
+		//System.out.printf("LGS Error = %s\n", err);
 		
-		assertEquals(0, err, 0.01);
+		assertEquals(0, err, 1.0E-10);
+	}
+	
+	@Test
+	public void fileOp() throws IOException
+	{
+		InputStream input = MatrixTests.class.getResourceAsStream("test.lgs");
+		
+		LGS lgs = new LGS(input);
+		
+		double err = Matrix.add(lgs.calcSollution(), 
+				Matrix.multiply(-1.0, new Matrix(new double[][]{{0}, {-4}, {3}}))).norm();
+		
+		assertEquals(0, err, 1.0E-10);
 	}
 
 }

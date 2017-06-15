@@ -91,6 +91,10 @@ public class Matrix implements Cloneable {
 		scanner.close();
 	}
 
+	/**
+	 * Writes the Matrix to the {@link OutputStream}.
+	 * @param output the target to write to. 
+	 */
 	public void save(OutputStream output)
 	{
 		PrintWriter writer = new PrintWriter(output);
@@ -231,6 +235,29 @@ public class Matrix implements Cloneable {
 		}
 		
 		return res;
+	}
+	
+	/**
+	 * Adds a row to the Matrix. To add a column use {@link Matrix}.transpose().
+	 * @param row Row to add to the Matrix.
+	 * @return returns the new Matrix.
+	 */
+	public Matrix addRow(double[] row)
+	{
+		assert row.length == this.getWidth();
+		
+		double[][] dat = new double [this.getHeight()+1][];
+		
+		int i = 0;
+		
+		for(i = 0; i < this.getHeight(); i++)
+		{
+			dat[i] = m_Values[i].clone();
+		}
+		
+		dat[i] = row;
+		
+		return new Matrix(dat);
 	}
 	
 	/**

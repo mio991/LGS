@@ -143,7 +143,10 @@ public class MatrixTests {
 		in.close();
 		
 		assertEquals(m1, test);
-		
-		
+	}
+	
+	@Test public void addRow()
+	{
+		assertEquals(m2, m1.addRow(new double[]{7, 8, 9}));
 	}
 }
