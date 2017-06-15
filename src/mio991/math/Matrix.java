@@ -63,6 +63,10 @@ public class Matrix implements Cloneable {
 	
 	/**
 	 * Reads a Matrix from an {@link InputStream}.
+	 * It expects first the height then the width as integers, 
+	 * and the should follow height * width decimal numbers.
+	 * Every number should be separated by a whitespace character like ' ' or '\n'.
+	 * 
 	 * @param input the {@link InputStream} to read from.
 	 */
 	public Matrix(InputStream input)

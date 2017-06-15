@@ -37,7 +37,10 @@ public class LGS {
 	/**
 	 * Reads an linear System from the input Stream.
 	 * 
-	 * Expects the Coefficients to come first then the Constants.  
+	 * Expects the Coefficients to come first then the Constants.
+	 * It's required, that the Coefficients Matrix and the Constants 
+	 * Matrix are separated by a line break. Which is the <STRONG>ONLY</STRONG> one in the File.
+	 *  
 	 * @param input An {@link InputStream} providing the matrices for the linear system.
 	 * @throws IOException 
 	 */
