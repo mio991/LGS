@@ -6,7 +6,7 @@ import mio991.math.*;
 public class CLI {
 	
 	private static Matrix s_Matrix;
-	private static LGS s_linearSystem;
+	private static LinearSystem s_linearSystem;
 
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);

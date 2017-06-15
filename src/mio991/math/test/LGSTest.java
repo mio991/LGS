@@ -17,20 +17,20 @@ public class LGSTest {
 		Matrix A = new Matrix(new double[][]{{1, 2}, {0, 1}});
 		Matrix b = new Matrix(new double[][]{{2}, {3}});
 		
-		LGS lgs = new LGS(A, b);
+		LinearSystem linearSystem = new LinearSystem(A, b);
 		
 		Matrix s = new Matrix(new double[][]{{-4}, {3}});
 		
-		assertEquals(s, lgs.calcSollution());
+		assertEquals(s, linearSystem.calcSollution());
 		
 		A = new Matrix(new double[][]{{1, 0, 0}, {0, 0, 1}, {0, 1, 0}});
 		b = new Matrix(new double[][]{{2}, {8}, {4}});
 		
-		lgs = new LGS(A, b);
+		linearSystem = new LinearSystem(A, b);
 		
 		s = new Matrix(new double[][]{{2}, {4}, {8}});
 		
-		assertEquals(s, lgs.calcSollution());
+		assertEquals(s, linearSystem.calcSollution());
 	}
 	
 	@Test
@@ -39,10 +39,10 @@ public class LGSTest {
 		Matrix A = new Matrix(new double[][]{{1, 2, 3}, {4, 5, 6}, {7, 0, 9}});
 		Matrix b = new Matrix(new double[][]{{2}, {8}, {4}});
 		
-		LGS lgs = new LGS(A, b);
+		LinearSystem linearSystem = new LinearSystem(A, b);
 		
 		Matrix s = new Matrix(new double[][]{{1.375}, {1.25}, {-0.625}});
-		double err = Matrix.add(lgs.calcSollution(),Matrix.multiply(-1.0, s)).norm();
+		double err = Matrix.add(linearSystem.calcSollution(),Matrix.multiply(-1.0, s)).norm();
 		
 		//System.out.printf("LGS Error = %s\n", err);
 		
@@ -54,9 +54,9 @@ public class LGSTest {
 	{
 		InputStream input = MatrixTests.class.getResourceAsStream("test.lgs");
 		
-		LGS lgs = new LGS(input);
+		LinearSystem linearSystem = new LinearSystem(input);
 		
-		double err = Matrix.add(lgs.calcSollution(), 
+		double err = Matrix.add(linearSystem.calcSollution(), 
 				Matrix.multiply(-1.0, new Matrix(new double[][]{{0}, {-4}, {3}}))).norm();
 		
 		assertEquals(0, err, 1.0E-10);

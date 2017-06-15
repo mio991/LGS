@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 import mio991.io.UncloesableInputStream;
 
-public class LGS {
+public class LinearSystem {
 	Matrix m_Coefficients;
 	Matrix m_Constants;
 	
@@ -16,7 +16,7 @@ public class LGS {
 	 * @param coefficients the nxn coefficients Matrix
 	 * @param constants the nx1 constants Vector
 	 */
-	public LGS(Matrix coefficients, Matrix constants) {
+	public LinearSystem(Matrix coefficients, Matrix constants) {
 		assert coefficients.getWidth() == constants.getHeight();
 		assert coefficients.getHeight() == coefficients.getWidth();
 		assert coefficients.det() != 0.0;
@@ -44,7 +44,7 @@ public class LGS {
 	 * @param input An {@link InputStream} providing the matrices for the linear system.
 	 * @throws IOException 
 	 */
-	public LGS(InputStream input) {
+	public LinearSystem(InputStream input) {
 		input = new UncloesableInputStream(input);
 		
 		Scanner sc = new Scanner(input);
