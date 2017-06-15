@@ -71,4 +71,9 @@ public class LinearSystem {
 		m_Coefficients.save(output);
 		m_Constants.save(output);
 	}
+	
+	@Override
+	public String toString() {
+		return "Coefficients:\n" + m_Coefficients.toString() + "\nConstants\n" + m_Constants.toString();
+	}
 }
