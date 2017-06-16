@@ -83,11 +83,31 @@ public class LinearSystem {
 	/**
 	 * Saves the linear System to the {@link OutputStream}.
 	 * @param output The {@link OutputStream} to write to.
+	 * @throws IOException 
 	 */
-	public void save(OutputStream output)
+	public void save(OutputStream output) throws IOException
 	{
-		m_Coefficients.save(output);
-		m_Constants.save(output);
+		ByteArrayOutputStream o1 = new ByteArrayOutputStream();
+		ByteArrayOutputStream o2 = new ByteArrayOutputStream();
+		
+		m_Coefficients.save(o1);
+		m_Constants.save(o2);
+		
+		output.write(o1.toByteArray());
+		output.write('\n');
+		output.write(o2.toByteArray());
+		
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(!(obj instanceof LinearSystem))
+		{
+			return false;
+		}
+		LinearSystem sys = (LinearSystem)obj;
+		
+		return this.m_Coefficients.equals(sys.m_Coefficients) && this.m_Constants.equals(sys.m_Constants);
 	}
 	
 	@Override

@@ -112,7 +112,7 @@ public class Matrix implements Cloneable {
 		{
 			for(int l = 0; l < this.getWidth(); l++)
 			{
-				writer.println(this.get(k, l));
+				writer.print(this.get(k, l));
 				writer.print(" ");
 			}
 		}

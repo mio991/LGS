@@ -2,6 +2,8 @@ package mio991.math.test;
 
 import static org.junit.Assert.*;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -61,5 +63,21 @@ public class LGSTest {
 		
 		assertEquals(0, err, 1.0E-10);
 	}
-
+	
+	@Test
+	public void saveTest() throws IOException
+	{
+		Matrix A = new Matrix(new double[][]{{1, 2}, {0, 1}});
+		Matrix b = new Matrix(new double[][]{{2}, {3}});
+		
+		LinearSystem linearSystem = new LinearSystem(A, b);
+		
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		
+		linearSystem.save(out);
+		
+		System.out.println(out.toString());
+		
+		assertEquals(linearSystem, new LinearSystem(new ByteArrayInputStream(out.toByteArray())));
+	}
 }
