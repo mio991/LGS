@@ -26,6 +26,24 @@ public class LinearSystem {
 	}
 	
 	/**
+	 * Access to the Coefficients Matrix 
+	 * @return the Coefficients Matrix of this System
+	 */
+	public Matrix getCoefficients()
+	{
+		return m_Coefficients;
+	}
+	
+	/**
+	 * Access to the Constants Vector
+	 * @return the Constants Vector of this System
+	 */
+	public Matrix getConstants()
+	{
+		return m_Constants;
+	}
+	
+	/**
 	 * Calculate the solution Vector for the linear system
 	 * @return the solution Vector.
 	 */
