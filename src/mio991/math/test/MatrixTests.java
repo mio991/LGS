@@ -149,4 +149,9 @@ public class MatrixTests {
 	{
 		assertEquals(m2, m1.addRow(new double[]{7, 8, 9}));
 	}
+	
+	@Test public void addColumn()
+	{
+		assertEquals(m2.transpose(), r3.addColumn(new double[]{7, 8, 9}));
+	}
 }

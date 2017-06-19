@@ -265,6 +265,18 @@ public class Matrix implements Cloneable {
 	}
 	
 	/**
+	 * Adds a Column to the Matrix
+	 * @param column the Column to add
+	 * @return the new Matrix
+	 */
+	public Matrix addColumn(double[] column)
+	{
+		assert column.length == this.getHeight();
+		
+		return this.transpose().addRow(column).transpose();
+	}
+	
+	/**
 	 * Calculates Det by Lapal development
 	 * @return det of Matrix
 	 */
