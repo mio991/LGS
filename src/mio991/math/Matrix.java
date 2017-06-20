@@ -1,6 +1,7 @@
 package mio991.math;
 
 import java.io.*;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Matrix implements Cloneable {
@@ -72,6 +73,7 @@ public class Matrix implements Cloneable {
 	public Matrix(InputStream input)
 	{
 		Scanner scanner = new Scanner(input);
+		scanner.useLocale(Locale.ENGLISH);
 		
 		int n = scanner.nextInt();
 		int m = scanner.nextInt();

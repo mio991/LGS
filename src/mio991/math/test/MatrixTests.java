@@ -131,8 +131,10 @@ public class MatrixTests {
 	
 	@Test
 	public void loadSaveTest() throws IOException {
-		File file = File.createTempFile("test1", "mat");
+		File file = File.createTempFile("test1", ".mat");
 		file.deleteOnExit();
+		
+		//System.out.println(file.getAbsolutePath());
 		
 		OutputStream out = new FileOutputStream(file);
 		m1.save(out);
