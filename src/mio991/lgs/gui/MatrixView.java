@@ -16,27 +16,29 @@ public class MatrixView extends JPanel {
 	private Matrix m_Matrix;
 
 	private static Format s_Format = new DecimalFormat();
-	
-	private static PropertyChangeListener s_ChangeListener = new PropertyChangeListener(){
+
+	private static PropertyChangeListener s_ChangeListener = new PropertyChangeListener() {
 		public void propertyChange(PropertyChangeEvent e) {
 			System.out.println(e.getPropertyName());
-			if(e.getPropertyName() == "Text" && e.getSource() instanceof ViewFormatedTextField)
-			{
+			if (e.getPropertyName() == "value" && e.getSource() instanceof ViewFormatedTextField) {
 				ViewFormatedTextField tf = (ViewFormatedTextField) e.getSource();
-				if(tf.getModel() instanceof MatrixCellModel)
-				{
-					MatrixCellModel model = (MatrixCellModel)tf.getModel();
-					double d = Double.parseDouble((String)e.getNewValue());
-					model.set(d);
+				if (tf.getModel() instanceof MatrixCellModel && e.getNewValue() instanceof Number) {
+					try {
+						MatrixCellModel model = (MatrixCellModel) tf.getModel();
+						double d = ((Number)e.getNewValue()).doubleValue();
+						model.set(d);
+					} catch (Exception ex) {
+						System.err.println(ex.getMessage());
+					}
 				}
 			}
 		};
 	};
-	
+
 	public MatrixView() {
 		this.setLayout(new GridLayout(0, 1, 0, 0));
 	}
-	
+
 	/**
 	 * @return the matrix
 	 */
@@ -45,19 +47,18 @@ public class MatrixView extends JPanel {
 	}
 
 	/**
-	 * @param matrix the matrix to set
+	 * @param matrix
+	 *            the matrix to set
 	 */
 	public void setMatrix(Matrix matrix) {
 		m_Matrix = matrix;
-		
+
 		this.removeAll();
-		
+
 		this.setLayout(new GridLayout(m_Matrix.getHeight(), m_Matrix.getWidth()));
-		
-		for(int k = 0; k < m_Matrix.getHeight(); k++)
-		{
-			for(int l = 0; l < m_Matrix.getWidth(); l++)
-			{
+
+		for (int k = 0; k < m_Matrix.getHeight(); k++) {
+			for (int l = 0; l < m_Matrix.getWidth(); l++) {
 				ViewFormatedTextField formattedTextField = new ViewFormatedTextField(s_Format);
 				formattedTextField.setModel(new MatrixCellModel(m_Matrix, k, l));
 				formattedTextField.addPropertyChangeListener(s_ChangeListener);
@@ -66,23 +67,21 @@ public class MatrixView extends JPanel {
 				add(formattedTextField);
 			}
 		}
-		
+
 		this.doLayout();
 	}
-	
+
 	/**
 	 * Adds a column to the Matrix
 	 */
-	public void addColumn()
-	{
+	public void addColumn() {
 		setMatrix(getMatrix().addColumn(new double[getMatrix().getHeight()]));
 	}
-	
+
 	/**
 	 * Adds a row to the Matrix
 	 */
-	public void addRow()
-	{
+	public void addRow() {
 		setMatrix(getMatrix().addRow(new double[getMatrix().getWidth()]));
 	}
 }

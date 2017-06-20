@@ -12,6 +12,7 @@ public class Window {
 
 	private JFrame frame;
 	private MatrixView m_MatrixView;
+	private MatrixView m_VectorView;
 	
 	/**
 	 * Launch the application.
@@ -97,6 +98,7 @@ public class Window {
 		JMenuItem mntmSave = new JMenuItem("Save");
 		mntmSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				save();
 			}
 		});
 		mnFile.add(mntmSave);
@@ -109,8 +111,9 @@ public class Window {
 		
 		m_MatrixView = new MatrixView();
 		frame.getContentPane().add(m_MatrixView, BorderLayout.CENTER);
+		m_MatrixView.setMatrix(new Matrix(3));
 		
-		MatrixView m_VectorView = new MatrixView();
+		m_VectorView = new MatrixView();
 		frame.getContentPane().add(m_VectorView, BorderLayout.EAST);
 	}
 
