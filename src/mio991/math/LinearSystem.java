@@ -17,10 +17,6 @@ public class LinearSystem {
 	 * @param constants the nx1 constants Vector
 	 */
 	public LinearSystem(Matrix coefficients, Matrix constants) {
-		assert coefficients.getWidth() == constants.getHeight();
-		assert coefficients.getHeight() == coefficients.getWidth();
-		assert coefficients.det() != 0.0;
-		
 		m_Coefficients = coefficients;
 		m_Constants = constants;
 	}
@@ -74,10 +70,6 @@ public class LinearSystem {
 		
 		m_Coefficients = new Matrix(new ByteArrayInputStream(m1.getBytes()));
 		m_Constants = new Matrix(new ByteArrayInputStream(m2.getBytes()));
-		
-		assert m_Coefficients.getWidth() == m_Coefficients.getHeight();
-		assert m_Coefficients.getWidth() == m_Constants.getHeight();
-		assert m_Coefficients.det() != 0;
 	}
 	
 	/**

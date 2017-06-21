@@ -16,8 +16,14 @@ public class Matrix implements Cloneable {
 	 *            Width of the Matrix
 	 */
 	public Matrix(int n, int m) {
-		assert n > 0;
-		assert m > 0;
+		if(n <= 0)
+		{
+			throw new IllegalArgumentException("n has to be biger then 0!");
+		}
+		if(m <= 0)
+		{
+			throw new IllegalArgumentException("m has to be biger then 0!");
+		}
 
 		m_Values = new double[n][m];
 	}
@@ -51,7 +57,10 @@ public class Matrix implements Cloneable {
 	public Matrix(double[][] val) {
 		int width = val[0].length;
 		for (double[] ds : val) {
-			assert ds.length == width;
+			if(ds.length != width)
+			{
+				throw new IllegalArgumentException("Every row has to have the same length!");
+			}
 		}
 
 		m_Values = val;
@@ -217,8 +226,10 @@ public class Matrix implements Cloneable {
 	 */
 	public Matrix sub(int k, int l)
 	{
-		assert this.getHeight() > 1;
-		assert this.getWidth() > 1;
+		if(this.getHeight() <= 1 || this.getWidth() <= 1)
+		{
+			throw new IllegalArgumentException("The Matrix has to have at least the size 2 in both directions!");
+		}
 		
 		Matrix res = new Matrix(this.getHeight()-1, this.getWidth()-1);
 		
@@ -250,7 +261,10 @@ public class Matrix implements Cloneable {
 	 */
 	public Matrix addRow(double[] row)
 	{
-		assert row.length == this.getWidth();
+		if(row.length != this.getWidth())
+		{
+			throw new IllegalArgumentException("The new row has to have the same length as the existing ones!");
+		}
 		
 		double[][] dat = new double [this.getHeight()+1][];
 		
@@ -273,7 +287,10 @@ public class Matrix implements Cloneable {
 	 */
 	public Matrix addColumn(double[] column)
 	{
-		assert column.length == this.getHeight();
+		if(column.length != this.getHeight())
+		{
+			throw new IllegalArgumentException("The new column has to have the same length as the existing ones!");
+		}
 		
 		return this.transpose().addRow(column).transpose();
 	}
@@ -296,7 +313,10 @@ public class Matrix implements Cloneable {
 	 */
 	public double det()
 	{
-		assert this.getHeight() == this.getWidth();
+		if(this.getHeight() != this.getWidth())
+		{
+			throw new IllegalArgumentException("Can't compute det of a non square Matrix!");
+		}
 		
 		double sum = 0;
 		
@@ -319,8 +339,14 @@ public class Matrix implements Cloneable {
 	 * @return the inverse of this Matrix.
 	 */
 	public Matrix inverse() {
-		assert this.getHeight() == this.getWidth();
-		assert this.det() != 0;
+		if(this.getHeight() != this.getWidth())
+		{
+			throw new IllegalArgumentException("Can't invert a non square Matrix!");
+		}
+		if(this.det() == 0)
+		{
+			throw new IllegalArgumentException("Can't invert Matrix with det 0!");
+		}
 		
 		Matrix copy = new Matrix(this);
 		Matrix res = unit(this.getHeight());
@@ -423,8 +449,10 @@ public class Matrix implements Cloneable {
 	 * @return result
 	 */
 	public static Matrix add(Matrix lhs, Matrix rhs) {
-		assert lhs.getWidth() == rhs.getWidth();
-		assert lhs.getHeight() == rhs.getHeight();
+		if(lhs.getWidth() != rhs.getWidth() || lhs.getHeight() != rhs.getHeight())
+		{
+			throw new IllegalArgumentException("The two matricies must have the same dimensions!");
+		}
 
 		Matrix result = new Matrix(lhs.getHeight(), lhs.getWidth());
 
@@ -447,8 +475,11 @@ public class Matrix implements Cloneable {
 	 * @return the result
 	 */
 	public static Matrix multiply(Matrix lhs, Matrix rhs) {
-		assert lhs.getWidth() == rhs.getHeight();
-
+		if(lhs.getWidth() != rhs.getHeight())
+		{
+			throw new IllegalArgumentException("The width of the left hand side has to be equal to the height of the right hand side!");
+		}
+		
 		Matrix result = new Matrix(lhs.getHeight(), rhs.getWidth());
 
 		for (int k = 0; k < result.getHeight(); k++) {
