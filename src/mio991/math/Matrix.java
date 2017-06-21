@@ -278,6 +278,18 @@ public class Matrix implements Cloneable {
 		return this.transpose().addRow(column).transpose();
 	}
 	
+	public Matrix removeLastRow() {
+		double[][] vals = new double[getHeight()-1][];
+		for (int i = 0; i < vals.length; i++) {
+			vals[i] = m_Values[i];
+		}
+		return new Matrix(vals);
+	}
+	
+	public Matrix removeLastColumn() {
+		return transpose().removeLastRow().transpose();
+	}
+	
 	/**
 	 * Calculates Det by Lapal development
 	 * @return det of Matrix

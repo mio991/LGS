@@ -6,13 +6,16 @@ import java.io.*;
 
 import javax.swing.*;
 
+import mio991.math.LinearSystem;
 import mio991.math.Matrix;
 
 public class Window {
 
-	private JFrame frame;
+	private JFrame frmLinearSystemSolver;
 	private MatrixView m_MatrixView;
 	private MatrixView m_VectorView;
+	
+	private LinearSystem m_LinearSystem = new LinearSystem(new Matrix(3), new Matrix(3, 1));
 	
 	/**
 	 * Launch the application.
@@ -22,7 +25,7 @@ public class Window {
 			public void run() {
 				try {
 					Window window = new Window();
-					window.frame.setVisible(true);
+					window.frmLinearSystemSolver.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -77,12 +80,13 @@ public class Window {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmLinearSystemSolver = new JFrame();
+		frmLinearSystemSolver.setTitle("Linear System Solver");
+		frmLinearSystemSolver.setBounds(100, 100, 500, 350);
+		frmLinearSystemSolver.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JMenuBar menuBar = new JMenuBar();
-		frame.setJMenuBar(menuBar);
+		frmLinearSystemSolver.setJMenuBar(menuBar);
 		
 		JMenu mnFile = new JMenu("File");
 		menuBar.add(mnFile);
@@ -108,13 +112,110 @@ public class Window {
 		
 		JMenuItem mntmExit = new JMenuItem("Exit");
 		mnFile.add(mntmExit);
+		frmLinearSystemSolver.getContentPane().setLayout(new BorderLayout(0, 0));
+		
+		JPanel panel_2 = new JPanel();
+		frmLinearSystemSolver.getContentPane().add(panel_2, BorderLayout.SOUTH);
+		GridBagLayout gbl_panel_2 = new GridBagLayout();
+		gbl_panel_2.columnWidths = new int[]{242, 242, 0};
+		gbl_panel_2.rowHeights = new int[]{23, 23, 23, 0};
+		gbl_panel_2.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_2.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+		panel_2.setLayout(gbl_panel_2);
+		
+		JButton btnAddColumn = new JButton("Add Column");
+		btnAddColumn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				m_MatrixView.addColumn();
+			}
+		});
+		
+		JButton btnAddRow = new JButton("Add Row");
+		btnAddRow.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				m_MatrixView.addRow();
+				m_VectorView.addRow();
+			}
+		});
+		GridBagConstraints gbc_btnAddRow = new GridBagConstraints();
+		gbc_btnAddRow.fill = GridBagConstraints.BOTH;
+		gbc_btnAddRow.insets = new Insets(0, 0, 5, 5);
+		gbc_btnAddRow.gridx = 0;
+		gbc_btnAddRow.gridy = 0;
+		panel_2.add(btnAddRow, gbc_btnAddRow);
+		GridBagConstraints gbc_btnAddColumn = new GridBagConstraints();
+		gbc_btnAddColumn.fill = GridBagConstraints.BOTH;
+		gbc_btnAddColumn.insets = new Insets(0, 0, 5, 0);
+		gbc_btnAddColumn.gridx = 1;
+		gbc_btnAddColumn.gridy = 0;
+		panel_2.add(btnAddColumn, gbc_btnAddColumn);
+		
+		JButton btnRemoveRow = new JButton("Remove Row");
+		btnRemoveRow.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				m_MatrixView.removeRow();
+				m_VectorView.removeRow();
+			}
+		});
+		GridBagConstraints gbc_btnRemoveRow = new GridBagConstraints();
+		gbc_btnRemoveRow.fill = GridBagConstraints.BOTH;
+		gbc_btnRemoveRow.insets = new Insets(0, 0, 5, 5);
+		gbc_btnRemoveRow.gridx = 0;
+		gbc_btnRemoveRow.gridy = 1;
+		panel_2.add(btnRemoveRow, gbc_btnRemoveRow);
+		
+		JButton btnRemoveColumn = new JButton("Remove Column");
+		btnRemoveColumn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				m_MatrixView.removeColumn();
+			}
+		});
+		GridBagConstraints gbc_btnRemoveColumn = new GridBagConstraints();
+		gbc_btnRemoveColumn.fill = GridBagConstraints.BOTH;
+		gbc_btnRemoveColumn.insets = new Insets(0, 0, 5, 0);
+		gbc_btnRemoveColumn.gridx = 1;
+		gbc_btnRemoveColumn.gridy = 1;
+		panel_2.add(btnRemoveColumn, gbc_btnRemoveColumn);
+		
+		JButton btnSolve = new JButton("Solve");
+		btnSolve.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				SolutionDialog.show(m_LinearSystem.calcSollution());
+			}
+		});
+		GridBagConstraints gbc_btnSolve = new GridBagConstraints();
+		gbc_btnSolve.gridwidth = 2;
+		gbc_btnSolve.fill = GridBagConstraints.BOTH;
+		gbc_btnSolve.gridx = 0;
+		gbc_btnSolve.gridy = 2;
+		panel_2.add(btnSolve, gbc_btnSolve);
+		
+		JSplitPane splitPane = new JSplitPane();
+		splitPane.setResizeWeight(0.8);
+		splitPane.setEnabled(false);
+		frmLinearSystemSolver.getContentPane().add(splitPane);
+		
+		JPanel panelCoefficients = new JPanel();
+		splitPane.setLeftComponent(panelCoefficients);
+		panelCoefficients.setLayout(new BorderLayout(0, 0));
+		
+		JLabel lblCoefficients = new JLabel("Coefficients");
+		panelCoefficients.add(lblCoefficients, BorderLayout.NORTH);
 		
 		m_MatrixView = new MatrixView();
-		frame.getContentPane().add(m_MatrixView, BorderLayout.CENTER);
-		m_MatrixView.setMatrix(new Matrix(3));
+		panelCoefficients.add(m_MatrixView);
+		m_MatrixView.setMatrix(m_LinearSystem.getCoefficients());
+		
+		JPanel panelConstants = new JPanel();
+		splitPane.setRightComponent(panelConstants);
+		panelConstants.setLayout(new BorderLayout(0, 0));
+		
+		JLabel lblConstants = new JLabel("Constants");
+		panelConstants.add(lblConstants, BorderLayout.NORTH);
 		
 		m_VectorView = new MatrixView();
-		frame.getContentPane().add(m_VectorView, BorderLayout.EAST);
+		panelConstants.add(m_VectorView);
+		m_VectorView.setMatrix(m_LinearSystem.getConstants());
 	}
 
 }

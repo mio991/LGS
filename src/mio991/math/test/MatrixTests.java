@@ -156,4 +156,14 @@ public class MatrixTests {
 	{
 		assertEquals(m2.transpose(), r3.addColumn(new double[]{7, 8, 9}));
 	}
+	
+	@Test public void removeLastRow()
+	{
+		assertEquals(m1, m2.removeLastRow());
+	}
+	
+	@Test public void removeLastColumn()
+	{
+		assertEquals(r3, m2.transpose().removeLastColumn());
+	}
 }

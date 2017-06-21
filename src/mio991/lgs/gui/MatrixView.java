@@ -84,4 +84,23 @@ public class MatrixView extends JPanel {
 	public void addRow() {
 		setMatrix(getMatrix().addRow(new double[getMatrix().getWidth()]));
 	}
+	
+	public void removeRow()
+	{
+		setMatrix(getMatrix().removeLastRow());
+	}
+	
+	public void removeColumn() {
+		setMatrix(getMatrix().removeLastColumn());
+	}
+	
+	public void setEditable(boolean t)
+	{
+		for (Component tf : getComponents()) {
+			if(tf instanceof ViewFormatedTextField)
+			{
+				((ViewFormatedTextField)tf).setEditable(t);
+			}
+		}
+	}
 }
