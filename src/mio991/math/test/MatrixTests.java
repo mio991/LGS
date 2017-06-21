@@ -62,7 +62,7 @@ public class MatrixTests {
 		assertEquals(r2, Matrix.multiply(m1, m2));
 	}
 
-	@Test(expected = AssertionError.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void multiplyWrongOrder() {
 		Matrix.multiply(m2, m1);
 	}
@@ -113,7 +113,7 @@ public class MatrixTests {
 		assertEquals(Matrix.e(3, 1, 2), Matrix.e(3, 1, 2).inverse());
 	}
 	
-	@Test(expected=AssertionError.class)
+	@Test(expected=IllegalArgumentException.class)
 	public void faultyInvers()
 	{
 		m1.inverse();
