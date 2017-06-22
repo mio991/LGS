@@ -127,6 +127,7 @@ public class Window {
 		btnAddColumn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				m_MatrixView.addColumn();
+				m_LinearSystem = new LinearSystem(m_MatrixView.getMatrix(), m_LinearSystem.getConstants());
 			}
 		});
 		
@@ -135,6 +136,7 @@ public class Window {
 			public void actionPerformed(ActionEvent arg0) {
 				m_MatrixView.addRow();
 				m_VectorView.addRow();
+				m_LinearSystem = new LinearSystem(m_MatrixView.getMatrix(), m_VectorView.getMatrix());
 			}
 		});
 		GridBagConstraints gbc_btnAddRow = new GridBagConstraints();
@@ -155,6 +157,7 @@ public class Window {
 			public void actionPerformed(ActionEvent e) {
 				m_MatrixView.removeRow();
 				m_VectorView.removeRow();
+				m_LinearSystem = new LinearSystem(m_MatrixView.getMatrix(), m_VectorView.getMatrix());
 			}
 		});
 		GridBagConstraints gbc_btnRemoveRow = new GridBagConstraints();
@@ -168,6 +171,7 @@ public class Window {
 		btnRemoveColumn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				m_MatrixView.removeColumn();
+				m_LinearSystem = new LinearSystem(m_MatrixView.getMatrix(), m_VectorView.getMatrix());
 			}
 		});
 		GridBagConstraints gbc_btnRemoveColumn = new GridBagConstraints();

@@ -45,7 +45,35 @@ public class LinearSystem {
 	 */
 	public Matrix calcSollution()
 	{
-		return multiply(m_Coefficients.inverse(), m_Constants);
+		if(m_Coefficients.getHeight() != m_Constants.getHeight())
+		{
+			throw new IllegalArgumentException("Coefficients and Constants have to have the same Height!");
+		}
+		
+		Matrix coefficents = new Matrix(m_Coefficients);
+		Matrix constants = new Matrix(m_Constants);
+		
+		while(coefficents.getWidth() > coefficents.getHeight())
+		{
+			double[] newRow = new double[coefficents.getWidth()];
+			
+			newRow[coefficents.getHeight()] = 1;
+			
+			
+			for (int i = 0; i < newRow.length; i++) {
+				newRow[i] += i+1;
+				for (int j = 0; j < coefficents.getHeight(); j++) {
+					newRow[i] += coefficents.get(j, i);
+				}
+			}
+			
+			coefficents = coefficents.addRow(newRow);
+			constants = constants.addRow(new double[]{1});
+		}
+		
+		System.out.println(coefficents);
+		
+		return multiply(coefficents.inverse(), constants);
 	}
 
 	/**
