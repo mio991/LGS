@@ -180,7 +180,13 @@ public class Window {
 		JButton btnSolve = new JButton("Solve");
 		btnSolve.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				SolutionDialog.show(m_LinearSystem.calcSollution());
+				try {
+					SolutionDialog.show(m_LinearSystem.calcSollution());
+				}
+				catch(IllegalArgumentException ex)
+				{
+					JOptionPane.showMessageDialog(null, ex.getMessage(), "Error!", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
 		GridBagConstraints gbc_btnSolve = new GridBagConstraints();
