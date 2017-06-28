@@ -71,8 +71,6 @@ public class LinearSystem {
 			constants = constants.addRow(new double[]{1});
 		}
 		
-		System.out.println(coefficents);
-		
 		return multiply(coefficents.inverse(), constants);
 	}
 
