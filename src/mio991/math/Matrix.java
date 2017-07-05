@@ -341,60 +341,35 @@ public class Matrix implements Cloneable {
 	public Matrix inverse() {
 		if(this.getHeight() != this.getWidth())
 		{
-			throw new IllegalArgumentException("Can't invert a non square Matrix!");
+			throw new IllegalArgumentException("The height and with of the Matrix are not equal!");
 		}
 		if(this.det() == 0)
 		{
-			throw new IllegalArgumentException("Can't invert Matrix with det 0!");
+			throw new IllegalArgumentException("The det of this Matrix is 0!");
+		}
+		
+		return this.gaus(unit(this.getHeight()));
+	}
+	
+	public Matrix gaus(Matrix rhs) {
+		
+		if(this.getHeight() != rhs.getHeight())
+		{
+			throw new IllegalArgumentException("The left hand side height and right hand side height are not equal!");
 		}
 		
 		Matrix copy = new Matrix(this);
-		Matrix res = unit(this.getHeight());
+		Matrix res = new Matrix(rhs);
 		
-		Matrix C;
-		
-		for(int l = 0; l < copy.getWidth(); l++)
+		for(int k = 0; k < copy.getHeight(); k++)
 		{
-			int max = l;
-			
-			for(int k = l; k < copy.getHeight(); k++)
+			int max = k;
+			for(int l = k + 1; l < copy.getHeight(); l++)
 			{
-				if(copy.get(k, l) > copy.get(max, l)){
-					max = k;
+				if(copy.get(max, k) < copy.get(l, k))
+				{
+					max = l;
 				}
-			}
-			
-			C = e(this.getHeight(), l, max);
-			
-			copy = multiply(C, copy);
-			res = multiply(C, res);
-			
-			if(copy.get(l, l) != 0.0)
-			{
-				C = e(this.getHeight(), l, 1.0 / copy.get(l, l));
-			
-				copy = multiply(C, copy);
-				res = multiply(C, res);
-			}
-			
-			for(int k = l+1; k < copy.getHeight(); k++)
-			{
-				C = e(this.getHeight(), k, l , -1.0 * copy.get(k, l));
-
-				copy = multiply(C, copy);
-				res = multiply(C, res);
-			}
-		}
-		
-		for(int l = copy.getWidth()-1; l >= 0; l--)
-		{
-			
-			for(int k = l-1; k >= 0; k--)
-			{
-				C = e(this.getHeight(), k, l , -1.0 * copy.get(k, l));
-
-				copy = multiply(C, copy);
-				res = multiply(C, res);
 			}
 		}
 		
