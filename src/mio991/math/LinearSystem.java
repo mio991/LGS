@@ -1,7 +1,5 @@
 package mio991.math;
 
-import static mio991.math.Matrix.*;
-
 import java.io.*;
 import java.util.Scanner;
 
@@ -53,25 +51,7 @@ public class LinearSystem {
 		Matrix coefficents = new Matrix(m_Coefficients);
 		Matrix constants = new Matrix(m_Constants);
 		
-		while(coefficents.getWidth() > coefficents.getHeight())
-		{
-			double[] newRow = new double[coefficents.getWidth()];
-			
-			newRow[coefficents.getHeight()] = 1;
-			
-			
-			for (int i = 0; i < newRow.length; i++) {
-				newRow[i] += i+1;
-				for (int j = 0; j < coefficents.getHeight(); j++) {
-					newRow[i] += coefficents.get(j, i);
-				}
-			}
-			
-			coefficents = coefficents.addRow(newRow);
-			constants = constants.addRow(new double[]{1});
-		}
-		
-		return multiply(coefficents.inverse(), constants);
+		return coefficents.gauss(constants);
 	}
 
 	/**
@@ -81,7 +61,7 @@ public class LinearSystem {
 	 * It's required, that the Coefficients Matrix and the Constants 
 	 * Matrix are separated by a line break. Which is the <STRONG>ONLY</STRONG> one in the File.
 	 *  
-	 * @param input An {@link InputStream} providing the matrices for the linear system.
+	 * @param input An InputStream providing the matrices for the linear system.
 	 * @throws IOException 
 	 */
 	public LinearSystem(InputStream input) {
@@ -99,8 +79,8 @@ public class LinearSystem {
 	}
 	
 	/**
-	 * Saves the linear System to the {@link OutputStream}.
-	 * @param output The {@link OutputStream} to write to.
+	 * Saves the linear System to the  OutputStream.
+	 * @param output The OutputStream to write to.
 	 * @throws IOException 
 	 */
 	public void save(OutputStream output) throws IOException

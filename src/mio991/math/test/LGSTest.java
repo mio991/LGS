@@ -33,6 +33,17 @@ public class LGSTest {
 		s = new Matrix(new double[][]{{2}, {4}, {8}});
 		
 		assertEquals(s, linearSystem.calcSollution());
+		
+		/* TODO: Make it work
+		A = new Matrix(new double[][]{{1, 2, 3}, {4, 5, 6}});
+		b = new Matrix(new double[][]{{2}, {3}});
+		
+		s = A.gauss(b);
+		
+		System.out.println(s);
+		
+		assertEquals(b, Matrix.multiply(A, s));
+		*/
 	}
 	
 	@Test
@@ -45,8 +56,6 @@ public class LGSTest {
 		
 		Matrix s = new Matrix(new double[][]{{1.375}, {1.25}, {-0.625}});
 		double err = Matrix.add(linearSystem.calcSollution(),Matrix.multiply(-1.0, s)).norm();
-		
-		//System.out.printf("LGS Error = %s\n", err);
 		
 		assertEquals(0, err, 1.0E-10);
 	}
@@ -75,8 +84,6 @@ public class LGSTest {
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		
 		linearSystem.save(out);
-		
-		System.out.println(out.toString());
 		
 		assertEquals(linearSystem, new LinearSystem(new ByteArrayInputStream(out.toByteArray())));
 	}

@@ -72,12 +72,12 @@ public class Matrix implements Cloneable {
 	}
 	
 	/**
-	 * Reads a Matrix from an {@link InputStream}.
+	 * Reads a Matrix from an InputStream.
 	 * It expects first the height then the width as integers, 
 	 * and the should follow height * width decimal numbers.
 	 * Every number should be separated by a whitespace character like ' ' or '\n'.
 	 * 
-	 * @param input the {@link InputStream} to read from.
+	 * @param input the InputStream to read from.
 	 */
 	public Matrix(InputStream input)
 	{
@@ -107,7 +107,7 @@ public class Matrix implements Cloneable {
 	}
 
 	/**
-	 * Writes the Matrix to the {@link OutputStream}.
+	 * Writes the Matrix to the OutputStream.
 	 * @param output the target to write to. 
 	 */
 	public void save(OutputStream output)
@@ -348,10 +348,10 @@ public class Matrix implements Cloneable {
 			throw new IllegalArgumentException("The det of this Matrix is 0!");
 		}
 		
-		return this.gaus(unit(this.getHeight()));
+		return this.gauss(unit(this.getHeight()));
 	}
 	
-	public Matrix gaus(Matrix rhs) {
+	public Matrix gauss(Matrix rhs) {
 		
 		if(this.getHeight() != rhs.getHeight())
 		{
@@ -371,8 +371,36 @@ public class Matrix implements Cloneable {
 					max = l;
 				}
 			}
+			
+			{
+				Matrix C = e(copy.getHeight(), k, max);
+				copy = multiply(C, copy);
+				res = multiply(C, res);
+			}
+			
+			{
+				Matrix C = e(copy.getHeight(), k, 1.0 / copy.get(k, k));
+				copy = multiply(C, copy);
+				res = multiply(C, res);
+			}
+			
+			for(int l = k+1; l < copy.getHeight(); l++)
+			{
+				Matrix C = e(copy.getHeight(), l, k, -copy.get(l, k));
+				copy = multiply(C, copy);
+				res = multiply(C, res);
+			}
 		}
 		
+		for(int k = copy.getHeight()-1; k >= 0; k--)
+		{			
+			for(int l = k-1; l >= 0; l--)
+			{
+				Matrix C = e(copy.getHeight(), l, k, -copy.get(l, k));
+				copy = multiply(C, copy);
+				res = multiply(C, res);
+			}
+		}		
 		return res;
 	}
 
@@ -506,6 +534,13 @@ public class Matrix implements Cloneable {
 		return res;
 	}
 	
+	/**
+	 * Creates an E(k, l)-Matrix of size n
+	 * @param n size of the Matrix
+	 * @param k Row 1
+	 * @param l Row 2
+	 * @return
+	 */
 	public static Matrix e(int n, int k, int l)
 	{
 		Matrix res = unit(n);
@@ -516,6 +551,13 @@ public class Matrix implements Cloneable {
 		return res;
 	}
 	
+	/**
+	 * Creates an E(k, lambda)-Matrix of size n
+	 * @param n size of the Matrix
+	 * @param k Row
+	 * @param lambda Factor
+	 * @return
+	 */
 	public static Matrix e(int n, int k, double lambda)
 	{
 		Matrix res = unit(n);
@@ -523,6 +565,14 @@ public class Matrix implements Cloneable {
 		return res;
 	}
 	
+	/**
+	 * Creates an E(k, l, lambda)-Matrix of size n
+	 * @param n size of the Matrix
+	 * @param k Row
+	 * @param l Column
+	 * @param lambda Factor
+	 * @return
+	 */
 	public static Matrix e(int n, int k, int l, double lambda)
 	{
 		Matrix res = unit(n);

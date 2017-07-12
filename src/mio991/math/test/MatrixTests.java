@@ -10,6 +10,7 @@ import java.util.Random;
 public class MatrixTests {
 	private Matrix m1;
 	private Matrix m2;
+	private Matrix m3;
 	private Matrix r1;
 	private Matrix r2;
 	private Matrix r3;
@@ -23,6 +24,7 @@ public class MatrixTests {
 	public MatrixTests() {
 		m1 = new Matrix(new double[][] { { 1, 2, 3 }, { 4, 5, 6 } });
 		m2 = new Matrix(new double[][] { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } });
+		m3 = new Matrix(new double[][]{{1, 0, 2}, {0, 2, 2}, {1, 0, 1}});
 		r1 = new Matrix(new double[][] { { 2, 4, 6 }, { 8, 10, 12 } });
 		r2 = new Matrix(new double[][] { { 30, 36, 42 }, { 66, 81, 96 } });
 		r3 = new Matrix(new double[][] { { 1, 4 }, { 2, 5 }, { 3, 6 } });
@@ -111,6 +113,7 @@ public class MatrixTests {
 		assertEquals(Matrix.unit(5), Matrix.unit(5).inverse());
 		assertEquals(Matrix.e(5, 3, 1.0/3.0), Matrix.e(5, 3, 3.0).inverse());
 		assertEquals(Matrix.e(3, 1, 2), Matrix.e(3, 1, 2).inverse());
+		assertEquals(new Matrix(new double[][]{{-1, 0, 2}, {-1, 0.5, 1}, {1, 0, -1}}), m3.inverse());
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
@@ -133,8 +136,6 @@ public class MatrixTests {
 	public void loadSaveTest() throws IOException {
 		File file = File.createTempFile("test1", ".mat");
 		file.deleteOnExit();
-		
-		//System.out.println(file.getAbsolutePath());
 		
 		OutputStream out = new FileOutputStream(file);
 		m1.save(out);
