@@ -378,6 +378,7 @@ public class Matrix implements Cloneable {
 				res = multiply(C, res);
 			}
 			
+			if(copy.get(k, k) != 0)
 			{
 				Matrix C = e(copy.getHeight(), k, 1.0 / copy.get(k, k));
 				copy = multiply(C, copy);
