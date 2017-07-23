@@ -33,17 +33,6 @@ public class LGSTest {
 		s = new Matrix(new double[][]{{2}, {4}, {8}});
 		
 		assertEquals(s, linearSystem.calcSollution());
-		
-		/* TODO: Make it work
-		A = new Matrix(new double[][]{{1, 2, 3}, {4, 5, 6}});
-		b = new Matrix(new double[][]{{2}, {3}});
-		
-		s = A.gauss(b);
-		
-		System.out.println(s);
-		
-		assertEquals(b, Matrix.multiply(A, s));
-		*/
 	}
 	
 	@Test
@@ -58,6 +47,19 @@ public class LGSTest {
 		double err = Matrix.add(linearSystem.calcSollution(),Matrix.multiply(-1.0, s)).norm();
 		
 		assertEquals(0, err, 1.0E-10);
+	}
+	
+	@Test
+	public void calcNotUniqueSolution()
+	{
+		Matrix A = new Matrix(new double[][]{{1, 2, 3}, {4, 5, 6}});
+		Matrix b = new Matrix(new double[][]{{2}, {3}});
+		
+		Matrix s = A.gauss(b);
+		
+		System.out.println(s);
+		
+		assertEquals(b, Matrix.multiply(A, s));
 	}
 	
 	@Test
