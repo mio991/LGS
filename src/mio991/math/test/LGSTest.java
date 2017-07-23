@@ -55,11 +55,9 @@ public class LGSTest {
 		Matrix A = new Matrix(new double[][]{{1, 2, 3}, {4, 5, 6}});
 		Matrix b = new Matrix(new double[][]{{2}, {3}});
 		
-		Matrix s = A.gauss(b);
+		LinearSystem linearSystem = new LinearSystem(A, b);
 		
-		System.out.println(s);
-		
-		assertEquals(b, Matrix.multiply(A, s));
+		assertEquals(b, Matrix.multiply(A, linearSystem.calcSollution()));
 	}
 	
 	@Test
