@@ -167,4 +167,12 @@ public class MatrixTests {
 	{
 		assertEquals(r3, m2.transpose().removeLastColumn());
 	}
+	
+	@Test public void zeroGaus()
+	{
+		Matrix m = new Matrix(new double[][]{{1, 0}, {1, 0}});
+		Matrix s = new Matrix(new double[][]{{1, 0}, {-1, 1}});
+		
+		assertEquals(s,m.gauss(Matrix.unit(2)));
+	}
 }
