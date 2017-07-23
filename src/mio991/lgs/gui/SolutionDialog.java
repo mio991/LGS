@@ -16,6 +16,7 @@ public class SolutionDialog extends JDialog {
 		
 		m_MatrixView = new MatrixView();
 		getContentPane().add(m_MatrixView, BorderLayout.CENTER);
+		m_MatrixView.setEditable(false);
 		
 		JPanel panel = new JPanel();
 		getContentPane().add(panel, BorderLayout.SOUTH);
