@@ -12,6 +12,8 @@ public class MatrixView extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 853596399033460281L;
+	
+	private boolean m_Editable = true;
 
 	private Matrix m_Matrix;
 
@@ -63,6 +65,7 @@ public class MatrixView extends JPanel {
 				formattedTextField.addPropertyChangeListener(s_ChangeListener);
 				formattedTextField.setValue(m_Matrix.get(k, l));
 				formattedTextField.setHorizontalAlignment(JTextField.CENTER);
+				formattedTextField.setEditable(this.isEditable());
 				add(formattedTextField);
 			}
 		}
@@ -95,11 +98,16 @@ public class MatrixView extends JPanel {
 	
 	public void setEditable(boolean t)
 	{
+		m_Editable = t;
 		for (Component tf : getComponents()) {
 			if(tf instanceof ViewFormatedTextField)
 			{
 				((ViewFormatedTextField)tf).setEditable(t);
 			}
 		}
+	}
+
+	public boolean isEditable() {
+		return m_Editable;
 	}
 }
