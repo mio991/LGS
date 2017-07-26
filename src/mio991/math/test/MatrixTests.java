@@ -173,6 +173,6 @@ public class MatrixTests {
 		Matrix m = new Matrix(new double[][]{{1, 0}, {1, 0}});
 		Matrix s = new Matrix(new double[][]{{1, 0}, {-1, 1}});
 		
-		assertEquals(s,m.gauss(Matrix.unit(2)));
+		assertEquals(s,Matrix.gauss(m, Matrix.unit(2)));
 	}
 }

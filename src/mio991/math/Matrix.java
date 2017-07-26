@@ -65,11 +65,6 @@ public class Matrix implements Cloneable {
 
 		m_Values = val;
 	}
-
-	@Override
-	protected Object clone() throws CloneNotSupportedException {
-		return new Matrix(this);
-	}
 	
 	/**
 	 * Reads a Matrix from an InputStream.
@@ -104,6 +99,11 @@ public class Matrix implements Cloneable {
 		}
 		
 		scanner.close();
+	}
+
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		return new Matrix(this);
 	}
 
 	/**
@@ -181,7 +181,7 @@ public class Matrix implements Cloneable {
 	 * 
 	 * @param p
 	 *            exponent to use in the p-Norm
-	 * @return the Result
+	 * @return the p-Norm
 	 */
 	public double norm(double p) {
 		double res = 0;
@@ -222,7 +222,7 @@ public class Matrix implements Cloneable {
 	 * Returns sub matrix
 	 * @param k left out row
 	 * @param l left out column
-	 * @return
+	 * @return the specified {@link Matrix} with the row and column left out.
 	 */
 	public Matrix sub(int k, int l)
 	{
@@ -295,6 +295,10 @@ public class Matrix implements Cloneable {
 		return this.transpose().addRow(column).transpose();
 	}
 	
+	/**
+	 * Removes the last row of the Matrix.
+	 * @return the modified Matrix
+	 */
 	public Matrix removeLastRow() {
 		double[][] vals = new double[getHeight()-1][];
 		for (int i = 0; i < vals.length; i++) {
@@ -303,6 +307,10 @@ public class Matrix implements Cloneable {
 		return new Matrix(vals);
 	}
 	
+	/**
+	 * Removes the last column of the Matrix.
+	 * @return the modified Matrix
+	 */
 	public Matrix removeLastColumn() {
 		return transpose().removeLastRow().transpose();
 	}
@@ -348,61 +356,7 @@ public class Matrix implements Cloneable {
 			throw new IllegalArgumentException("The det of this Matrix is 0!");
 		}
 		
-		return this.gauss(unit(this.getHeight()));
-	}
-	
-	public Matrix gauss(Matrix rhs) {
-		
-		if(this.getHeight() != rhs.getHeight())
-		{
-			throw new IllegalArgumentException("The left hand side height and right hand side height are not equal!");
-		}
-		
-		Matrix copy = new Matrix(this);
-		Matrix res = new Matrix(rhs);
-		
-		for(int k = 0; k < copy.getHeight(); k++)
-		{
-			int max = k;
-			for(int l = k + 1; l < copy.getHeight(); l++)
-			{
-				if(copy.get(max, k) < copy.get(l, k))
-				{
-					max = l;
-				}
-			}
-			
-			{
-				Matrix C = e(copy.getHeight(), k, max);
-				copy = multiply(C, copy);
-				res = multiply(C, res);
-			}
-			
-			if(copy.get(k, k) != 0)
-			{
-				Matrix C = e(copy.getHeight(), k, 1.0 / copy.get(k, k));
-				copy = multiply(C, copy);
-				res = multiply(C, res);
-			}
-			
-			for(int l = k+1; l < copy.getHeight(); l++)
-			{
-				Matrix C = e(copy.getHeight(), l, k, -copy.get(l, k));
-				copy = multiply(C, copy);
-				res = multiply(C, res);
-			}
-		}
-		
-		for(int k = copy.getHeight()-1; k >= 0; k--)
-		{			
-			for(int l = k-1; l >= 0; l--)
-			{
-				Matrix C = e(copy.getHeight(), l, k, -copy.get(l, k));
-				copy = multiply(C, copy);
-				res = multiply(C, res);
-			}
-		}		
-		return res;
+		return gauss(this, unit(this.getHeight()));
 	}
 
 	@Override
@@ -519,6 +473,66 @@ public class Matrix implements Cloneable {
 			}
 		}
 		return result;
+	}
+	
+	/**
+	 * Takes tow matrices of the same height and applies the gauss-algorithm
+	 * @param lhs the left hand side to be transformed into a unit matrix
+	 * @param rhs the right hand side to be transformed equally to the left hand side
+	 * @return returns the transformed right hand side.
+	 */
+	public static Matrix gauss(Matrix lhs, Matrix rhs) {
+		
+		if(lhs.getHeight() != rhs.getHeight())
+		{
+			throw new IllegalArgumentException("The left hand side height and right hand side height are not equal!");
+		}
+		
+		Matrix copy = new Matrix(lhs);
+		Matrix res = new Matrix(rhs);
+		
+		for(int k = 0; k < copy.getHeight(); k++)
+		{
+			int max = k;
+			for(int l = k + 1; l < copy.getHeight(); l++)
+			{
+				if(copy.get(max, k) < copy.get(l, k))
+				{
+					max = l;
+				}
+			}
+			
+			{
+				Matrix C = e(copy.getHeight(), k, max);
+				copy = multiply(C, copy);
+				res = multiply(C, res);
+			}
+			
+			if(copy.get(k, k) != 0)
+			{
+				Matrix C = e(copy.getHeight(), k, 1.0 / copy.get(k, k));
+				copy = multiply(C, copy);
+				res = multiply(C, res);
+			}
+			
+			for(int l = k+1; l < copy.getHeight(); l++)
+			{
+				Matrix C = e(copy.getHeight(), l, k, -copy.get(l, k));
+				copy = multiply(C, copy);
+				res = multiply(C, res);
+			}
+		}
+		
+		for(int k = copy.getHeight()-1; k >= 0; k--)
+		{			
+			for(int l = k-1; l >= 0; l--)
+			{
+				Matrix C = e(copy.getHeight(), l, k, -copy.get(l, k));
+				copy = multiply(C, copy);
+				res = multiply(C, res);
+			}
+		}		
+		return res;
 	}
 	
 	/**

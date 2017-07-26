@@ -57,7 +57,7 @@ public class LinearSystem {
 			constants = constants.addRow(new double[constants.getWidth()]);
 		}
 		
-		return coefficents.gauss(constants);
+		return Matrix.gauss(coefficents ,constants);
 	}
 
 	/**
