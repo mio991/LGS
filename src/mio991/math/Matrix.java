@@ -4,6 +4,13 @@ import java.io.*;
 import java.util.Locale;
 import java.util.Scanner;
 
+/**
+ * A Matrix of variable dimensions.
+ * 
+ * All the basic operations are implemented, including the Gauss Algorithm.
+ * @author mio991
+ *
+ */
 public class Matrix implements Cloneable {
 	private double[][] m_Values;
 
@@ -404,7 +411,6 @@ public class Matrix implements Cloneable {
 	 *            left hand side
 	 * @param rhs
 	 *            right hand side
-	 * @return result
 	 */
 	public static Matrix add(Matrix lhs, Matrix rhs) {
 		if(lhs.getWidth() != rhs.getWidth() || lhs.getHeight() != rhs.getHeight())
@@ -430,7 +436,6 @@ public class Matrix implements Cloneable {
 	 *            left hand side
 	 * @param rhs
 	 *            right hand side
-	 * @return the result
 	 */
 	public static Matrix multiply(Matrix lhs, Matrix rhs) {
 		if(lhs.getWidth() != rhs.getHeight())
@@ -458,11 +463,12 @@ public class Matrix implements Cloneable {
 	/**
 	 * Scalar multiplication
 	 * 
+	 * Multiplication of a matrix by a scalar.
+	 * 
 	 * @param lhs
 	 *            scalar
 	 * @param rhs
 	 *            Matrix
-	 * @return result
 	 */
 	public static Matrix multiply(double lhs, Matrix rhs) {
 		Matrix result = new Matrix(rhs);

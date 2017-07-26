@@ -7,10 +7,12 @@ import java.text.*;
 
 import mio991.math.Matrix;
 
+/**
+ * A View to display a single Matrix.
+ * @author mio991
+ *
+ */
 public class MatrixView extends JPanel {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 853596399033460281L;
 	
 	private boolean m_Editable = true;
@@ -41,7 +43,7 @@ public class MatrixView extends JPanel {
 	}
 
 	/**
-	 * @return the matrix
+	 * Returns the matrix
 	 */
 	public Matrix getMatrix() {
 		return m_Matrix;
@@ -49,7 +51,7 @@ public class MatrixView extends JPanel {
 
 	/**
 	 * @param matrix
-	 *            the matrix to set
+	 *            the matrix to display
 	 */
 	public void setMatrix(Matrix matrix) {
 		m_Matrix = matrix;
@@ -87,15 +89,24 @@ public class MatrixView extends JPanel {
 		setMatrix(getMatrix().addRow(new double[getMatrix().getWidth()]));
 	}
 	
+	/**
+	 * removes a Row from the Matrix
+	 */
 	public void removeRow()
 	{
 		setMatrix(getMatrix().removeLastRow());
 	}
 	
+	/**
+	 * Removes a column from the Matrix
+	 */
 	public void removeColumn() {
 		setMatrix(getMatrix().removeLastColumn());
 	}
 	
+	/**
+	 * Sets if the MatrixView is editable.
+	 */
 	public void setEditable(boolean t)
 	{
 		m_Editable = t;
@@ -107,6 +118,9 @@ public class MatrixView extends JPanel {
 		}
 	}
 
+	/**
+	 * Returns if this View is currently editable.
+	 */
 	public boolean isEditable() {
 		return m_Editable;
 	}

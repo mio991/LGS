@@ -9,6 +9,11 @@ import javax.swing.*;
 import mio991.math.LinearSystem;
 import mio991.math.Matrix;
 
+/**
+ * The Main Window for the UI of the linear system solver.
+ * @author mio991
+ *
+ */
 public class Window {
 
 	private JFrame frmLinearSystemSolver;
@@ -40,7 +45,10 @@ public class Window {
 		initialize();
 	}
 	
-	public void open()
+	/**
+	 * Opens a Linear System asking the user for the file.
+	 */
+	public void open() //TODO: Allof this
 	{
 		JFileChooser fileChooser = new JFileChooser();
 		if(fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
@@ -49,6 +57,10 @@ public class Window {
 		}
 	}
 	
+	/**
+	 * Opens a Linear System from the specified file.
+	 * @param file The File to open.
+	 */
 	public void open(String file)
 	{
 		try {
@@ -58,6 +70,9 @@ public class Window {
 		}
 	}
 	
+	/**
+	 * Saves a Linear System asking the user for the file.
+	 */
 	public void save()
 	{
 		JFileChooser fileChooser = new JFileChooser();
@@ -66,7 +81,11 @@ public class Window {
 			save(fileChooser.getSelectedFile().getAbsolutePath());
 		}
 	}
-	
+
+	/**
+	 * Saves a Linear System from the specified file.
+	 * @param path The File to write.
+	 */
 	public void save(String path)
 	{
 		try {

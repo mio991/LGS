@@ -6,6 +6,11 @@ import javax.swing.*;
 
 import mio991.math.Matrix;
 
+/**
+ * A Dialog to display a solution of a calculation.
+ * @author mio991
+ *
+ */
 public class SolutionDialog extends JDialog {
 	private MatrixView m_MatrixView;
 	
@@ -53,6 +58,10 @@ public class SolutionDialog extends JDialog {
 		m_MatrixView.setMatrix(val);
 	}
 	
+	/**
+	 * Displays a solution Dialog with of a given Matrix.
+	 * @param val The Matrix to show.
+	 */
 	public static void show(Matrix val)
 	{
 		SolutionDialog dialog = new SolutionDialog();

@@ -3,8 +3,11 @@ package mio991.math;
 import java.io.*;
 import java.util.Scanner;
 
-import mio991.io.UncloesableInputStream;
-
+/**
+ * A linear system, composed of a Matrix and a column vector.
+ * @author mio991
+ *
+ */
 public class LinearSystem {
 	Matrix m_Coefficients;
 	Matrix m_Constants;
@@ -70,9 +73,7 @@ public class LinearSystem {
 	 * @param input An InputStream providing the matrices for the linear system.
 	 * @throws IOException 
 	 */
-	public LinearSystem(InputStream input) {
-		input = new UncloesableInputStream(input);
-		
+	public LinearSystem(InputStream input) {		
 		Scanner sc = new Scanner(input);
 		
 		String m1 = sc.nextLine();

@@ -9,7 +9,7 @@ Matricies can be stored in regular Text files complacent to the following Format
 - row count first as an Integer
 - column count second also as an Integer
 - Followed by row count times column count decimal numbers contained in the Matrix
-- Everything separeted by whitespace characters like ' ' or '\n'
+- Everything separeted by whitespace characters like ' ' or '\\n'
 
 ### The .lgs Format
 

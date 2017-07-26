@@ -4,13 +4,21 @@ import java.io.*;
 import java.util.*;
 import mio991.math.*;
 
+/**
+ * A Command Line Interface for this linear system solver.
+ * @author mio991
+ *
+ */
 public class CLI {
 
 	private static Matrix s_Matrix;
 	private static Matrix s_Vector;
 	private static LinearSystem s_LinearSystem;
 
-	public static void main(String[] args) {
+	/**
+	 * Runs a CLI for this linear system solver.
+	 */
+	public static void main() {
 		Scanner scanner = new Scanner(System.in);
 
 		System.out.println("########################################\n" + "#    Linear System Solver v0.4 CLI     #\n"
