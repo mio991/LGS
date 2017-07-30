@@ -48,7 +48,7 @@ public class Window {
 	/**
 	 * Opens a Linear System asking the user for the file.
 	 */
-	public void open() //TODO: Allof this
+	public void open()
 	{
 		JFileChooser fileChooser = new JFileChooser();
 		if(fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
@@ -64,7 +64,9 @@ public class Window {
 	public void open(String file)
 	{
 		try {
-			m_MatrixView.setMatrix(new Matrix(new FileInputStream(file)));
+			m_LinearSystem = new LinearSystem(new FileInputStream(file));
+			m_MatrixView.setMatrix(m_LinearSystem.getCoefficients());
+			m_VectorView.setMatrix(m_LinearSystem.getConstants());
 		} catch (FileNotFoundException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage(), "Error!", JOptionPane.ERROR_MESSAGE);
 		}
@@ -89,8 +91,8 @@ public class Window {
 	public void save(String path)
 	{
 		try {
-			m_MatrixView.getMatrix().save(new FileOutputStream(path));
-		} catch (FileNotFoundException e) {
+			m_LinearSystem.save(new FileOutputStream(path));
+		} catch (IOException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage(), "Error!", JOptionPane.ERROR_MESSAGE);
 		}
 	}
