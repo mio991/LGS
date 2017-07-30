@@ -71,7 +71,7 @@ public class MatrixTests {
 
 	@Test
 	public void norm() {
-		assertEquals(9.508, m1.norm(), 0.1); // TODO: Find a siutable epsilon
+		assertEquals(9.508, m1.norm(), 1E-1);
 	}
 
 	@Test

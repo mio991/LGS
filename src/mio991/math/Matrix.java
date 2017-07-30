@@ -198,7 +198,7 @@ public class Matrix implements Cloneable {
 			}
 		}
 
-		return Math.pow(res, 1.0 / p);
+		return Math.pow(res, 1.0d / p);
 	}
 
 	/**
