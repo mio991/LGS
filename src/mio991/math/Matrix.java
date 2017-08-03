@@ -86,7 +86,18 @@ public class Matrix implements Cloneable {
 		Scanner scanner = new Scanner(input);
 		scanner.useLocale(Locale.ENGLISH);
 		
+		if(!scanner.hasNextInt())
+		{
+			scanner.close();
+			throw new IllegalArgumentException("Corrupted File: Missing Data? Non numerical Symbols?");
+		}
 		int n = scanner.nextInt();
+		
+		if(!scanner.hasNextInt())
+		{
+			scanner.close();
+			throw new IllegalArgumentException("Corrupted File: Missing Data? Non numerical Symbols?");
+		}
 		int m = scanner.nextInt();
 		
 		m_Values = new double[n][m];
@@ -514,7 +525,7 @@ public class Matrix implements Cloneable {
 				res = multiply(C, res);
 			}
 			
-			if(copy.get(k, k) != 0)
+			if((k < copy.getWidth()) && (copy.get(k, k) != 0))
 			{
 				Matrix C = e(copy.getHeight(), k, 1.0 / copy.get(k, k));
 				copy = multiply(C, copy);
@@ -533,9 +544,11 @@ public class Matrix implements Cloneable {
 		{			
 			for(int l = k-1; l >= 0; l--)
 			{
-				Matrix C = e(copy.getHeight(), l, k, -copy.get(l, k));
-				copy = multiply(C, copy);
-				res = multiply(C, res);
+				if(k < copy.getWidth()){
+					Matrix C = e(copy.getHeight(), l, k, -copy.get(l, k));
+					copy = multiply(C, copy);
+					res = multiply(C, res);
+				}
 			}
 		}		
 		return res;
