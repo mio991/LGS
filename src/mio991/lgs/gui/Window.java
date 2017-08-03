@@ -68,7 +68,7 @@ public class Window {
 			m_MatrixView.setMatrix(m_LinearSystem.getCoefficients());
 			m_VectorView.setMatrix(m_LinearSystem.getConstants());
 		} catch (FileNotFoundException e) {
-			JOptionPane.showMessageDialog(null, e.getMessage(), "Error!", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, e.getMessage(), Messages.getString("Window.0"), JOptionPane.ERROR_MESSAGE); //$NON-NLS-1$
 		}
 	}
 	
@@ -93,7 +93,7 @@ public class Window {
 		try {
 			m_LinearSystem.save(new FileOutputStream(path));
 		} catch (IOException e) {
-			JOptionPane.showMessageDialog(null, e.getMessage(), "Error!", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, e.getMessage(), Messages.getString("Window.0"), JOptionPane.ERROR_MESSAGE); //$NON-NLS-1$
 		}
 	}
 
@@ -210,7 +210,7 @@ public class Window {
 				}
 				catch(IllegalArgumentException ex)
 				{
-					JOptionPane.showMessageDialog(null, ex.getMessage(), "Error!", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, ex.getMessage(), Messages.getString("Window.0"), JOptionPane.ERROR_MESSAGE); //$NON-NLS-1$
 				}
 			}
 		});

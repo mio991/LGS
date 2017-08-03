@@ -23,7 +23,7 @@ public class MatrixView extends JPanel {
 
 	private static PropertyChangeListener s_ChangeListener = new PropertyChangeListener() {
 		public void propertyChange(PropertyChangeEvent e) {
-			if (e.getPropertyName() == "value" && e.getSource() instanceof ViewFormatedTextField) {
+			if (e.getPropertyName() == "value" && e.getSource() instanceof ViewFormatedTextField) { //$NON-NLS-1$
 				ViewFormatedTextField tf = (ViewFormatedTextField) e.getSource();
 				if (tf.getModel() instanceof MatrixCellModel && e.getNewValue() instanceof Number) {
 					try {

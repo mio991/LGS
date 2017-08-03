@@ -25,11 +25,11 @@ public class Matrix implements Cloneable {
 	public Matrix(int n, int m) {
 		if(n <= 0)
 		{
-			throw new IllegalArgumentException("n has to be biger then 0!");
+			throw new IllegalArgumentException(Messages.getString("Matrix.0")); //$NON-NLS-1$
 		}
 		if(m <= 0)
 		{
-			throw new IllegalArgumentException("m has to be biger then 0!");
+			throw new IllegalArgumentException(Messages.getString("Matrix.1")); //$NON-NLS-1$
 		}
 
 		m_Values = new double[n][m];
@@ -66,7 +66,7 @@ public class Matrix implements Cloneable {
 		for (double[] ds : val) {
 			if(ds.length != width)
 			{
-				throw new IllegalArgumentException("Every row has to have the same length!");
+				throw new IllegalArgumentException(Messages.getString("Matrix.2")); //$NON-NLS-1$
 			}
 		}
 
@@ -89,14 +89,14 @@ public class Matrix implements Cloneable {
 		if(!scanner.hasNextInt())
 		{
 			scanner.close();
-			throw new IllegalArgumentException("Corrupted File: Missing Data? Non numerical Symbols?");
+			throw new IllegalArgumentException(Messages.getString("Matrix.3")); //$NON-NLS-1$
 		}
 		int n = scanner.nextInt();
 		
 		if(!scanner.hasNextInt())
 		{
 			scanner.close();
-			throw new IllegalArgumentException("Corrupted File: Missing Data? Non numerical Symbols?");
+			throw new IllegalArgumentException(Messages.getString("Matrix.3")); //$NON-NLS-1$
 		}
 		int m = scanner.nextInt();
 		
@@ -109,7 +109,7 @@ public class Matrix implements Cloneable {
 				if(!scanner.hasNextDouble())
 				{
 					scanner.close();
-					throw new IllegalArgumentException("Corrupted File: Missing Data? Non numerical Symbols?");
+					throw new IllegalArgumentException(Messages.getString("Matrix.3")); //$NON-NLS-1$
 				}
 					
 				this.set(k, l, scanner.nextDouble());
@@ -133,16 +133,16 @@ public class Matrix implements Cloneable {
 		PrintWriter writer = new PrintWriter(output);
 		
 		writer.print(this.getHeight());
-		writer.print(" ");
+		writer.print(" "); //$NON-NLS-1$
 		writer.print(this.getWidth());
-		writer.print(" ");
+		writer.print(" "); //$NON-NLS-1$
 		
 		for(int k = 0; k < this.getHeight(); k++)
 		{
 			for(int l = 0; l < this.getWidth(); l++)
 			{
 				writer.print(this.get(k, l));
-				writer.print(" ");
+				writer.print(" "); //$NON-NLS-1$
 			}
 		}
 		
@@ -246,7 +246,7 @@ public class Matrix implements Cloneable {
 	{
 		if(this.getHeight() <= 1 || this.getWidth() <= 1)
 		{
-			throw new IllegalArgumentException("The Matrix has to have at least the size 2 in both directions!");
+			throw new IllegalArgumentException(Messages.getString("Matrix.9")); //$NON-NLS-1$
 		}
 		
 		Matrix res = new Matrix(this.getHeight()-1, this.getWidth()-1);
@@ -281,7 +281,7 @@ public class Matrix implements Cloneable {
 	{
 		if(row.length != this.getWidth())
 		{
-			throw new IllegalArgumentException("The new row has to have the same length as the existing ones!");
+			throw new IllegalArgumentException(Messages.getString("Matrix.10")); //$NON-NLS-1$
 		}
 		
 		double[][] dat = new double [this.getHeight()+1][];
@@ -307,7 +307,7 @@ public class Matrix implements Cloneable {
 	{
 		if(column.length != this.getHeight())
 		{
-			throw new IllegalArgumentException("The new column has to have the same length as the existing ones!");
+			throw new IllegalArgumentException(Messages.getString("Matrix.11")); //$NON-NLS-1$
 		}
 		
 		return this.transpose().addRow(column).transpose();
@@ -341,7 +341,7 @@ public class Matrix implements Cloneable {
 	{
 		if(this.getHeight() != this.getWidth())
 		{
-			throw new IllegalArgumentException("Can't compute det of a non square Matrix!");
+			throw new IllegalArgumentException(Messages.getString("Matrix.12")); //$NON-NLS-1$
 		}
 		
 		double sum = 0;
@@ -367,11 +367,11 @@ public class Matrix implements Cloneable {
 	public Matrix inverse() {
 		if(this.getHeight() != this.getWidth())
 		{
-			throw new IllegalArgumentException("The height and with of the Matrix are not equal!");
+			throw new IllegalArgumentException(Messages.getString("Matrix.13")); //$NON-NLS-1$
 		}
 		if(this.det() == 0)
 		{
-			throw new IllegalArgumentException("The det of this Matrix is 0!");
+			throw new IllegalArgumentException(Messages.getString("Matrix.14")); //$NON-NLS-1$
 		}
 		
 		return gauss(this, unit(this.getHeight()));
@@ -379,14 +379,14 @@ public class Matrix implements Cloneable {
 
 	@Override
 	public String toString() {
-		String res = "";
+		String res = ""; //$NON-NLS-1$
 
 		for (double[] ds : m_Values) {
-			res += "(";
+			res += "("; //$NON-NLS-1$
 			for (double d : ds) {
-				res += d + " ";
+				res += d + " "; //$NON-NLS-1$
 			}
-			res += ")\n";
+			res += ")\n"; //$NON-NLS-1$
 		}
 
 		return res;
@@ -426,7 +426,7 @@ public class Matrix implements Cloneable {
 	public static Matrix add(Matrix lhs, Matrix rhs) {
 		if(lhs.getWidth() != rhs.getWidth() || lhs.getHeight() != rhs.getHeight())
 		{
-			throw new IllegalArgumentException("The two matricies must have the same dimensions!");
+			throw new IllegalArgumentException(Messages.getString("Matrix.19")); //$NON-NLS-1$
 		}
 
 		Matrix result = new Matrix(lhs.getHeight(), lhs.getWidth());
@@ -451,7 +451,7 @@ public class Matrix implements Cloneable {
 	public static Matrix multiply(Matrix lhs, Matrix rhs) {
 		if(lhs.getWidth() != rhs.getHeight())
 		{
-			throw new IllegalArgumentException("The width of the left hand side has to be equal to the height of the right hand side!");
+			throw new IllegalArgumentException(Messages.getString("Matrix.20")); //$NON-NLS-1$
 		}
 		
 		Matrix result = new Matrix(lhs.getHeight(), rhs.getWidth());
@@ -502,12 +502,12 @@ public class Matrix implements Cloneable {
 		
 		if(lhs.getHeight() != rhs.getHeight())
 		{
-			throw new IllegalArgumentException("The left hand side height and right hand side height are not equal!");
+			throw new IllegalArgumentException(Messages.getString("Matrix.21")); //$NON-NLS-1$
 		}
 		
 		if(lhs.getHeight() > lhs.getWidth())
 		{
-			throw new IllegalArgumentException("The left hand side height is biger then left hand side width!");
+			throw new IllegalArgumentException(Messages.getString("Matrix.22")); //$NON-NLS-1$
 		}
 		
 		Matrix copy = new Matrix(lhs);

@@ -48,7 +48,7 @@ public class LinearSystem {
 	{
 		if(m_Coefficients.getHeight() != m_Constants.getHeight())
 		{
-			throw new IllegalArgumentException("Coefficients and Constants have to have the same Height!");
+			throw new IllegalArgumentException(Messages.getString("LinearSystem.0")); //$NON-NLS-1$
 		}
 		
 		Matrix coefficents = new Matrix(m_Coefficients);
@@ -117,6 +117,6 @@ public class LinearSystem {
 	
 	@Override
 	public String toString() {
-		return "Coefficients:\n" + m_Coefficients.toString() + "\nConstants\n" + m_Constants.toString();
+		return Messages.getString("LinearSystem.1") + m_Coefficients.toString() + Messages.getString("LinearSystem.2") + m_Constants.toString(); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 }
