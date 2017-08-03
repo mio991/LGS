@@ -555,8 +555,6 @@ public class Matrix implements Cloneable {
 			}
 		}
 		
-		System.out.println(copy.toString());
-		
 		return res;
 	}
 	
