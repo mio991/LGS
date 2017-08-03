@@ -17,7 +17,7 @@ public class SolutionDialog extends JDialog {
 	private SolutionDialog() {
 		super();
 		
-		setTitle("Sollution");
+		setTitle(Messages.getString("SolutionDialog.this.title")); //$NON-NLS-1$
 		
 		m_MatrixView = new MatrixView();
 		getContentPane().add(m_MatrixView, BorderLayout.CENTER);
@@ -32,7 +32,7 @@ public class SolutionDialog extends JDialog {
 		flowLayout.setAlignment(FlowLayout.RIGHT);
 		panel.add(panel_1, BorderLayout.NORTH);
 		
-		JButton btnAccept = new JButton("OK");
+		JButton btnAccept = new JButton(Messages.getString("SolutionDialog.btnAccept.text")); //$NON-NLS-1$
 		btnAccept.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				close();
