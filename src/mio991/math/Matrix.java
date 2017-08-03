@@ -505,6 +505,11 @@ public class Matrix implements Cloneable {
 			throw new IllegalArgumentException("The left hand side height and right hand side height are not equal!");
 		}
 		
+		if(lhs.getHeight() > lhs.getWidth())
+		{
+			throw new IllegalArgumentException("The left hand side height is biger then left hand side width!");
+		}
+		
 		Matrix copy = new Matrix(lhs);
 		Matrix res = new Matrix(rhs);
 		
@@ -540,17 +545,18 @@ public class Matrix implements Cloneable {
 			}
 		}
 		
-		for(int k = copy.getHeight()-1; k >= 0; k--)
+		for(int k = copy.getWidth()-1; k >= 0; k--)
 		{			
 			for(int l = k-1; l >= 0; l--)
 			{
-				if(k < copy.getWidth()){
 					Matrix C = e(copy.getHeight(), l, k, -copy.get(l, k));
 					copy = multiply(C, copy);
 					res = multiply(C, res);
-				}
 			}
-		}		
+		}
+		
+		System.out.println(copy.toString());
+		
 		return res;
 	}
 	
