@@ -18,7 +18,7 @@ public class CLI {
 	/**
 	 * Runs a CLI for this linear system solver.
 	 */
-	public static void main() {
+	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
 
 		System.out.println("########################################\n" + "#    Linear System Solver v0.4 CLI     #\n"
