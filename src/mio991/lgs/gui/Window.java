@@ -102,17 +102,17 @@ public class Window {
 	 */
 	private void initialize() {
 		frmLinearSystemSolver = new JFrame();
-		frmLinearSystemSolver.setTitle("Linear System Solver");
+		frmLinearSystemSolver.setTitle(Messages.getString("Window.frmLinearSystemSolver.title")); //$NON-NLS-1$
 		frmLinearSystemSolver.setBounds(100, 100, 500, 350);
 		frmLinearSystemSolver.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JMenuBar menuBar = new JMenuBar();
 		frmLinearSystemSolver.setJMenuBar(menuBar);
 		
-		JMenu mnFile = new JMenu("File");
+		JMenu mnFile = new JMenu(Messages.getString("Window.mnFile.text")); //$NON-NLS-1$
 		menuBar.add(mnFile);
 		
-		JMenuItem mntOpen = new JMenuItem("Open");
+		JMenuItem mntOpen = new JMenuItem(Messages.getString("Window.mntOpen.text")); //$NON-NLS-1$
 		mntOpen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				open();
@@ -120,7 +120,7 @@ public class Window {
 		});
 		mnFile.add(mntOpen);
 		
-		JMenuItem mntmSave = new JMenuItem("Save");
+		JMenuItem mntmSave = new JMenuItem(Messages.getString("Window.mntmSave.text")); //$NON-NLS-1$
 		mntmSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				save();
@@ -131,7 +131,7 @@ public class Window {
 		JSeparator separator = new JSeparator();
 		mnFile.add(separator);
 		
-		JMenuItem mntmExit = new JMenuItem("Exit");
+		JMenuItem mntmExit = new JMenuItem(Messages.getString("Window.mntmExit.text")); //$NON-NLS-1$
 		mnFile.add(mntmExit);
 		frmLinearSystemSolver.getContentPane().setLayout(new BorderLayout(0, 0));
 		
@@ -144,7 +144,7 @@ public class Window {
 		gbl_panel_2.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel_2.setLayout(gbl_panel_2);
 		
-		JButton btnAddColumn = new JButton("Add Column");
+		JButton btnAddColumn = new JButton(Messages.getString("Window.btnAddColumn.text")); //$NON-NLS-1$
 		btnAddColumn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				m_MatrixView.addColumn();
@@ -152,7 +152,7 @@ public class Window {
 			}
 		});
 		
-		JButton btnAddRow = new JButton("Add Row");
+		JButton btnAddRow = new JButton(Messages.getString("Window.btnAddRow.text")); //$NON-NLS-1$
 		btnAddRow.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				m_MatrixView.addRow();
@@ -173,7 +173,7 @@ public class Window {
 		gbc_btnAddColumn.gridy = 0;
 		panel_2.add(btnAddColumn, gbc_btnAddColumn);
 		
-		JButton btnRemoveRow = new JButton("Remove Row");
+		JButton btnRemoveRow = new JButton(Messages.getString("Window.btnRemoveRow.text")); //$NON-NLS-1$
 		btnRemoveRow.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				m_MatrixView.removeRow();
@@ -188,7 +188,7 @@ public class Window {
 		gbc_btnRemoveRow.gridy = 1;
 		panel_2.add(btnRemoveRow, gbc_btnRemoveRow);
 		
-		JButton btnRemoveColumn = new JButton("Remove Column");
+		JButton btnRemoveColumn = new JButton(Messages.getString("Window.btnRemoveColumn.text")); //$NON-NLS-1$
 		btnRemoveColumn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				m_MatrixView.removeColumn();
@@ -202,7 +202,7 @@ public class Window {
 		gbc_btnRemoveColumn.gridy = 1;
 		panel_2.add(btnRemoveColumn, gbc_btnRemoveColumn);
 		
-		JButton btnSolve = new JButton("Solve");
+		JButton btnSolve = new JButton(Messages.getString("Window.btnSolve.text")); //$NON-NLS-1$
 		btnSolve.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -230,7 +230,7 @@ public class Window {
 		splitPane.setLeftComponent(panelCoefficients);
 		panelCoefficients.setLayout(new BorderLayout(0, 0));
 		
-		JLabel lblCoefficients = new JLabel("Coefficients");
+		JLabel lblCoefficients = new JLabel(Messages.getString("Window.lblCoefficients.text")); //$NON-NLS-1$
 		panelCoefficients.add(lblCoefficients, BorderLayout.NORTH);
 		
 		m_MatrixView = new MatrixView();
@@ -241,7 +241,7 @@ public class Window {
 		splitPane.setRightComponent(panelConstants);
 		panelConstants.setLayout(new BorderLayout(0, 0));
 		
-		JLabel lblConstants = new JLabel("Constants");
+		JLabel lblConstants = new JLabel(Messages.getString("Window.lblConstants.text")); //$NON-NLS-1$
 		panelConstants.add(lblConstants, BorderLayout.NORTH);
 		
 		m_VectorView = new MatrixView();
